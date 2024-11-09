@@ -15,5 +15,9 @@ async def get_openai_response(query: str) -> str:
         model=OPENAI_MODEL,
         messages=[{"role": "user", "content": query}]
     )
-    return response.choices[0].message.content
+    return {
+        "response": response.choices[0].message.content,
+        "model": OPENAI_MODEL,
+        "usage": response.usage.dict()
+    }
 

@@ -29,9 +29,8 @@ async def get_response(
     query: str = Query(..., description="write your query."),
 ) -> dict:
     logging.info(f"Query: {query}")
-    return {
-        "response":f"{await get_openai_response(query)}"
-    }
+    response = await get_openai_response(query)
+    return response
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8080)
