@@ -3,8 +3,11 @@ from fastapi import FastAPI,Query
 import uvicorn
 import logging
 from openai_custom import get_openai_response
+from mangum import Mangum
+from constants import INSTANCE_TYPE
 # Initialize FastAPI app
 app = FastAPI()
+handler = Mangum(app)
 
 
 @app.get("/")
@@ -16,8 +19,9 @@ async def index() -> dict:
     """
     logging.info("Index is working")
     return {
-        "Status": True,
-        "message": "API is working.."
+        "status": True,
+        "message": "API is working..",
+        "instance_type": INSTANCE_TYPE
     }
 
 @app.post("/response")
